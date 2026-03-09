@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
-import { Layout, Space, Typography } from 'antd'
+import { Layout, Space, Typography, Pagination } from 'antd'
 import Navbar from '@/components/layout/Navbar'
 import PhotoGrid from '@/components/photo/PhotoGrid'
 import styles from './page.module.css'
@@ -14,12 +14,20 @@ export default function Home() {
   const [photos, setPhotos] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
-  const fetchPhotos = async () => {
+  const [page, setPage] = useState(1)
+  const [limit] = useState(12)
+  const [total, setTotal] = useState(0)
+
+  const fetchPhotos = async (pageNumber = 1) => {
+    setLoading(true)
+
     try {
-      const res = await fetch('/api/photos')
+      const res = await fetch(`/api/photos?page=${pageNumber}&limit=${limit}`)
       const data = await res.json()
-      setPhotos(data)
-      console.log('Fetched photos:', data)
+
+      setPhotos(data.data)
+      setTotal(data.total)
+
     } catch (err) {
       console.error('Failed to fetch photos')
     } finally {
@@ -28,12 +36,16 @@ export default function Home() {
   }
 
   useEffect(() => {
-    fetchPhotos()
-  }, [])
+    fetchPhotos(page)
+  }, [page])
 
   const handleUploadSuccess = useCallback(() => {
-    fetchPhotos()
-  }, [])
+    fetchPhotos(page)
+  }, [page])
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage)
+  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -41,6 +53,7 @@ export default function Home() {
 
       <Content className={styles.content}>
         <div className={styles.container}>
+
           <Space direction="vertical" style={{ width: '100%' }} size={24}>
 
             <div>
@@ -55,7 +68,17 @@ export default function Home() {
 
             <PhotoGrid photos={photos} loading={loading} />
 
+            <Pagination
+              align='center'
+              current={page}
+              total={total}
+              pageSize={limit}
+              onChange={handlePageChange}
+              style={{ textAlign: 'center', marginTop: 24 }}
+            />
+
           </Space>
+
         </div>
       </Content>
 

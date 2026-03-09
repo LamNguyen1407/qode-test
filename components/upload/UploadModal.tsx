@@ -27,7 +27,7 @@ export default function UploadModal({ open, onClose, onSuccess }: UploadModalPro
       width={600}
       styles={{ body: { maxHeight: '70vh', overflowY: 'auto' } }}
     >
-      <UploadDragger />
+      <UploadDragger onUploadSuccess={onSuccess} />
     </Modal>
   )
 }

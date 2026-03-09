@@ -10,7 +10,7 @@ export async function GET(
   const photo = await prisma.photo.findUnique({
     where: { id },
     include: {
-      comments: true,
+      comments: { orderBy: { createdAt: "desc" } },
       _count: {
         select: { comments: true },
       },

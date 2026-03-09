@@ -27,7 +27,7 @@ export default function PhotoGrid({
     md: 2,
     lg: 4,
     xl: 4,
-    xxl: 4,
+    xxl: 6,
   },
 }: PhotoGridProps) {
   if (loading) {
@@ -47,7 +47,7 @@ export default function PhotoGrid({
   }
 
   return (
-    <Row gutter={[16, 16]} className={styles.grid}>
+    <Row gutter={[16,16]} className={styles.grid}>
       {photos.map((photo) => (
         <Col key={photo.id} xs={columns.xs} sm={columns.sm} md={columns.md} lg={columns.lg} xl={columns.xl} xxl={columns.xxl}>
           <PhotoCard photo={photo} />
