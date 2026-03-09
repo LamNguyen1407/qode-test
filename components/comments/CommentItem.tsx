@@ -32,7 +32,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
               comment.avatar ? (
                 <Image
                   src={comment.avatar}
-                  alt={comment.author}
+                  alt={comment.authorName}
                   fill
                   sizes="32px"
                   style={{ objectFit: 'cover' }}
@@ -40,11 +40,11 @@ export default function CommentItem({ comment }: CommentItemProps) {
               ) : undefined
             }
           >
-            {comment.author[0].toUpperCase()}
+            {comment.authorName ? comment.authorName[0].toUpperCase() : '?'}
           </Avatar>
           <Space direction="vertical" size={0} style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Text strong>{comment.author}</Text>
+              <Text strong>{comment.authorName}</Text>
               <Text type="secondary" style={{ fontSize: '12px' }}>
                 {formatDate(comment.createdAt)}
               </Text>

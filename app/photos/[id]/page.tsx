@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Layout, Row, Col, Card, Space, Typography, Button, Image, Spin, Empty, message } from 'antd'
+import { Layout, Row, Col, Card, Space, Typography, Button, Image, Spin, Empty } from 'antd'
 import { ArrowLeftOutlined, CalendarOutlined, UserOutlined, CommentOutlined } from '@ant-design/icons'
 import Navbar from '@/components/layout/Navbar'
 import CommentList from '@/components/comments/CommentList'
@@ -11,6 +11,7 @@ import CommentInput from '@/components/comments/CommentInput'
 import { Photo } from '@/types/photo'
 import { Comment } from '@/types/comment'
 import styles from './page.module.css'
+import { toast } from 'react-toastify'
 
 const { Content } = Layout
 const { Title, Text } = Typography
@@ -26,30 +27,65 @@ export default function PhotoDetailPage() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    const photo = getPhotoById(photoId)
-    if (photo) {
-      setPhoto(photo)
-      setComments(getCommentsByPhotoId(photoId))
-    }
-    setLoading(false)
-  }, [photoId])
-
-  const handleAddComment = async (author: string, text: string) => {
-    setSubmitting(true)
+  const fetchPhoto = async () => {
     try {
-      const newComment = addComment(photoId, author, text)
-      setComments([...comments, newComment])
-      if (photo) {
-        setPhoto({ ...photo, commentCount: photo.commentCount + 1 })
+      const res = await fetch(`/api/photos/${photoId}`)
+
+      if (!res.ok) {
+        setPhoto(null)
+        return
       }
-      message.success('Comment posted!')
-    } catch (error) {
-      message.error('Failed to post comment')
-      throw error
+
+      const data = await res.json()
+
+      setPhoto(data)
+      setComments(data.comments || [])
+      console.log('Fetched photo:', data)
+    } catch (err) {
+      console.error("Failed to fetch photo")
     } finally {
-      setSubmitting(false)
+      setLoading(false)
     }
   }
+
+  fetchPhoto()
+}, [photoId])
+
+  const handleAddComment = async (authorName: string, text: string) => {
+  setSubmitting(true)
+
+  try {
+    const res = await fetch("/api/comment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        photoId,
+        authorName,
+        text,
+      }),
+    })
+
+    if (!res.ok) throw new Error()
+
+    const newComment = await res.json()
+
+    setComments(prev => [...prev, newComment])
+
+    setPhoto(prev =>
+      prev
+        ? { ...prev, _count: { ...prev._count, comments: prev._count.comments + 1 } }
+        : prev
+    )
+
+    toast.success("Comment posted!")
+  } catch (error) {
+    toast.error("Failed to post comment")
+  } finally {
+    setSubmitting(false)
+  }
+}
 
   if (loading) {
     return (
@@ -142,7 +178,7 @@ export default function PhotoDetailPage() {
                     <div className={styles.metaInfo}>
                       <Space>
                         <CommentOutlined />
-                        <Text>{photo.commentCount} comments</Text>
+                        <Text>{photo._count.comments} comments</Text>
                       </Space>
                     </div>
                   </Space>

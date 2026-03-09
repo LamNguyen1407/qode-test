@@ -86,6 +86,7 @@ export type PhotoScalarFieldEnum = (typeof PhotoScalarFieldEnum)[keyof typeof Ph
 export const CommentScalarFieldEnum = {
   id: 'id',
   text: 'text',
+  authorName: 'authorName',
   createdAt: 'createdAt',
   photoId: 'photoId'
 } as const

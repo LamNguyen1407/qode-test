@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Input, Button, Space, Form, message } from 'antd'
 import { SendOutlined } from '@ant-design/icons'
+import { toast } from 'react-toastify'
 
 interface CommentInputProps {
   onSubmit: (author: string, text: string) => Promise<void> | void
@@ -17,11 +18,11 @@ export default function CommentInput({ onSubmit, loading = false }: CommentInput
 
   const handleSubmit = async () => {
     if (!author.trim()) {
-      message.error('Please enter your name')
+      toast.error('Please enter your name')
       return
     }
     if (!text.trim()) {
-      message.error('Please enter a comment')
+      toast.error('Please enter a comment')
       return
     }
 
@@ -29,9 +30,8 @@ export default function CommentInput({ onSubmit, loading = false }: CommentInput
     try {
       await onSubmit(author, text)
       setText('')
-      message.success('Comment posted successfully!')
     } catch (error) {
-      message.error('Failed to post comment')
+      console.error('Failed to submit comment:', error)
     } finally {
       setSubmitting(false)
     }

@@ -1,7 +1,7 @@
 export interface Comment {
   id: string
   photoId: string
-  author: string
+  authorName: string
   text: string
   createdAt: Date
   avatar?: string

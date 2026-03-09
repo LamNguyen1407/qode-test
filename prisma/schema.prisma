@@ -24,9 +24,10 @@ model Photo {
 }
 
 model Comment {
-  id        String   @id @default(uuid())
-  text      String
-  createdAt DateTime @default(now())
-  photoId   String
-  photo     Photo    @relation(fields: [photoId], references: [id])
+  id         String   @id @default(uuid())
+  text       String
+  authorName String   @default("Anonymous")
+  createdAt  DateTime @default(now())
+  photoId    String
+  photo      Photo    @relation(fields: [photoId], references: [id])
 }
