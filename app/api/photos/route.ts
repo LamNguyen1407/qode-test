@@ -4,7 +4,9 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const photos = await prisma.photo.findMany({
     include: {
-      comments: true,
+      _count: {
+        select: { comments: true },
+      },
     },
     orderBy: {
       createdAt: "desc",

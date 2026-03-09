@@ -35,7 +35,7 @@ export default function PhotoGrid({
       <Row gutter={[16, 16]}>
         {[...Array(8)].map((_, index) => (
           <Col key={index} xs={columns.xs} sm={columns.sm} md={columns.md} lg={columns.lg} xl={columns.xl} xxl={columns.xxl}>
-            <Skeleton.Avatar active size={{ width: '100%', height: 200 }} shape="square" />
+            <Skeleton.Avatar active size="large" shape="square" style={{ width: '100%', height: 200 }} />
           </Col>
         ))}
       </Row>

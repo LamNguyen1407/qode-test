@@ -36,13 +36,13 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
             {photo.title}
           </Title>
           <Text type="secondary" style={{ fontSize: '12px' }}>
-            by {photo.author}
+            by {photo.authorName}
           </Text>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <CommentOutlined />
             <Badge
-              count={photo.commentCount}
+              count={photo._count.comments}
               style={{ backgroundColor: '#1890ff' }}
-              icon={<CommentOutlined />}
             />
           </div>
         </Space>

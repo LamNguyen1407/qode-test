@@ -14,10 +14,13 @@ datasource db {
 }
 
 model Photo {
-  id        String    @id @default(uuid())
-  url       String
-  createdAt DateTime  @default(now())
-  comments  Comment[]
+  id          String    @id @default(uuid())
+  url         String
+  title       String
+  authorName  String
+  description String?
+  createdAt   DateTime  @default(now())
+  comments    Comment[]
 }
 
 model Comment {

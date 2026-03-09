@@ -7,7 +7,7 @@ import { ArrowLeftOutlined, CalendarOutlined, UserOutlined, CommentOutlined } fr
 import Navbar from '@/components/layout/Navbar'
 import CommentList from '@/components/comments/CommentList'
 import CommentInput from '@/components/comments/CommentInput'
-import { getPhotoById, getCommentsByPhotoId, addComment } from '@/lib/mockData'
+// import { getPhotoById, getCommentsByPhotoId, addComment } from '@/lib/mockData'
 import { Photo } from '@/types/photo'
 import { Comment } from '@/types/comment'
 import styles from './page.module.css'
@@ -128,7 +128,7 @@ export default function PhotoDetailPage() {
                     <div className={styles.metaInfo}>
                       <Space>
                         <UserOutlined />
-                        <Text>{photo.author}</Text>
+                        <Text>{photo.authorName}</Text>
                       </Space>
                     </div>
 
