@@ -1,0 +1,38 @@
+.navbar {
+  background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .navContent {
+    padding: 0 16px;
+  }
+
+  .logo span {
+    display: none;
+  }
+}

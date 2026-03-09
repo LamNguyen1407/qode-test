@@ -1,0 +1,31 @@
+.dragger {
+  border: 2px dashed #1890ff;
+  border-radius: 4px;
+  padding: 32px;
+  background-color: #fafafa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dragger:hover {
+  border-color: #0050b3;
+  background-color: #f0f8ff;
+}
+
+.dragContent {
+  text-align: center;
+}
+
+.filePreview {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  background-color: #fafafa;
+  border-radius: 4px;
+}
+
+.preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
