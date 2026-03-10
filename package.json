@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && next build",
+    "build": "next build",
     "start": "next start",
     "postinstall": "prisma generate",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
