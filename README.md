@@ -178,6 +178,3 @@ npm run dev
 # 👨‍💻 Author
 
 Built by **Lam Nguyen**
-
-
-Chỉ cần gửi tôi **link GitHub repo**, tôi sẽ **review README và chỉnh lại cho level production**.
